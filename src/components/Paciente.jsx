@@ -1,0 +1,54 @@
+import usePacientes from "../hooks/usePacientes"
+
+
+const Paciente = ({paciente}) => {
+    const { setEdicion, eliminarPaciente } = usePacientes()
+    const {_id, email, fecha, nombre, propietario, sintomas} = paciente
+
+
+    const formatearFecha = (fecha) =>{
+
+        const nuevaFecha = new Date(fecha)
+        
+        return new Intl.DateTimeFormat('es-ES',{month:'2-digit',day:'2-digit', year:'numeric'}).format(nuevaFecha)
+
+    }
+
+      
+  return (
+    <div className="mx-5 my-10 bg-white shadow-md p-5 rounded-xl">
+        <p className="font-bold uppercase text-indigo-800 my-2">Nombre: {' '}
+            <span className="font-normal normal-case text-black">{nombre}</span>
+        </p>
+        <p className="font-bold uppercase text-indigo-800 my-2">Propietario: {' '}
+            <span className="font-normal normal-case text-black">{propietario}</span>
+        </p>
+        <p className="font-bold uppercase text-indigo-800 my-2">Email de contacto: {' '}
+            <span className="font-normal normal-case text-black">{email}</span>
+        </p>
+        <p className="font-bold uppercase text-indigo-800 my-2">Síntomas: {' '}
+            <span className="font-normal normal-case text-black">{sintomas}</span>
+        </p>
+        <p className="font-bold uppercase text-indigo-800 my-2">Fecha de alta: {' '}
+            <span className="font-normal normal-case text-black">{formatearFecha(fecha)}</span>
+        </p>
+
+        <div className="flex justify-between my-5">
+            <button 
+                type="button" 
+                className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white uppercase rounded-full md:rounded-lg"
+                onClick={() => setEdicion(paciente)}
+            >
+                Editar
+            </button>
+         
+            <button type="button" className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white uppercase rounded-full md:rounded-lg" onClick={() => eliminarPaciente(_id)}>
+                Eliminar
+            </button>
+        </div>
+
+    </div>
+  )
+}
+
+export default Paciente
