@@ -1,6 +1,4 @@
 import usePacientes from "../hooks/usePacientes"
-import moment from 'moment';
-moment.locale('ES'); 
 
 
 const Paciente = ({paciente}) => {

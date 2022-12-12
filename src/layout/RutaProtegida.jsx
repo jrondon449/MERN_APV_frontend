@@ -10,7 +10,7 @@ const RutaProtegida = () => {
 
   
 
-  if(loading) return <Spinner />
+  if(loading) return <div className="spinner"><Spinner /></div>
 
   return (
     <>
