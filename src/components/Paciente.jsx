@@ -1,4 +1,6 @@
 import usePacientes from "../hooks/usePacientes"
+import moment from 'moment';
+moment.locale('ES'); 
 
 
 const Paciente = ({paciente}) => {
@@ -6,16 +8,16 @@ const Paciente = ({paciente}) => {
     const {_id, email, fecha, nombre, propietario, sintomas} = paciente
 
 
-    const formatearFecha = (fecha) =>{
-
+   
+    const formatearFecha = (fecha) => {
         const nuevaFecha = new Date(fecha)
-        
-        return new Intl.DateTimeFormat('es-ES',{month:'2-digit',day:'2-digit', year:'numeric'}).format(nuevaFecha)
-
+        nuevaFecha.setMinutes(nuevaFecha.getMinutes() + nuevaFecha.getTimezoneOffset())
+        return new Intl.DateTimeFormat('es-CO', { dateStyle: 'long' }).format(nuevaFecha)
     }
 
-      
-  return (
+
+         
+    return (
     <div className="mx-5 my-10 bg-white shadow-md p-5 rounded-xl">
         <p className="font-bold uppercase text-indigo-800 my-2">Nombre: {' '}
             <span className="font-normal normal-case text-black">{nombre}</span>

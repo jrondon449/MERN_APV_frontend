@@ -70,7 +70,6 @@ const PacientesProvider = ({children}) => {
             }
 
             
-            console.log('nuevo registro')
         }
     }
 
