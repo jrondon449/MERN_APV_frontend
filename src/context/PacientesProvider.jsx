@@ -2,7 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
 import Swal from 'sweetalert2'
-import 'sweetalert2/src/sweetalert2.scss'
+import 'sweetalert2/dist/sweetalert2.all'
+
 
 
 
