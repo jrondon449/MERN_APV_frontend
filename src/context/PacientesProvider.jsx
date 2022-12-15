@@ -1,6 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+
+
 
 const PacientesContext = createContext()
 
@@ -9,6 +13,19 @@ const PacientesProvider = ({children}) => {
     const [pacientes, setPacientes] = useState([])
     const [paciente, setPaciente] = useState([])
     const { auth } = useAuth()
+
+    const toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'Titulo',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+    });
+        
+
 
     useEffect(() =>{
         const obtenerPacientes = async () =>{
@@ -79,10 +96,22 @@ const PacientesProvider = ({children}) => {
 
     
     const eliminarPaciente = async (id) => {
-
-
-        // Aqui cambiar y poner una alerta sweet Alert por ejemplo
-        const confirmar = confirm('Desea eliminar el registro del paciente?')
+        
+        const confirmar = await Swal.fire({
+            title: '¿Estas seguro de eliminar el paciente?',
+            text: "!No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminarlo!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                return true;
+            } else {
+                return false;
+            }})
+            
         
         if(confirmar){
             try {
@@ -100,6 +129,11 @@ const PacientesProvider = ({children}) => {
                 const pacientesActualizado = pacientes.filter( pacienteState => pacienteState._id !== id )
 
                 setPacientes(pacientesActualizado)
+                toastMixin.fire({
+                    animation: true,
+                    title: 'Eliminado correctamente'
+                  });
+
 
             } catch (error) {
                 console.log(error)

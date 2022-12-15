@@ -63,7 +63,7 @@ const Login = () => {
             <div className="my-4">
               <label className="uppercase text-gray-600 block text-xl font-bold" htmlFor="">Password</label>
               <input 
-                type="password" placeholder="Contraseña" className="border w-full p-3 mt-3 bg-gray-50 rounded-xl" value={password}
+                type="password" placeholder="Contraseña" className="border w-full p-3 mt-3 bg-gray-50 rounded-xl" value={password} autoComplete="off"
                 onChange = { e => setPassword(e.target.value)}
 
               />

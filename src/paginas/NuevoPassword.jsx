@@ -82,7 +82,7 @@ const NuevoPassword = () => {
           <>
             <form onSubmit={handleSubmit}>
             
-              <div clas sName="my-2">
+              <div className="my-2">
                 <label className="uppercase text-gray-600 block text-xl font-bold">Nuevo password
                 </label>
                 <input 
@@ -90,6 +90,7 @@ const NuevoPassword = () => {
                   placeholder="Ingresa una nueva contraseña" 
                   className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
                   value={ password }
+                  autoComplete="off"
                   onChange={ e => setPassword(e.target.value)}
                   />
               </div>

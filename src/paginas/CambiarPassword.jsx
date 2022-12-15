@@ -9,7 +9,8 @@ const CambiarPassword = () => {
   const [alerta, setAlerta] = useState({})
   const [password, setPassword] = useState({ 
     currentPwd: '',
-    newPwd: ''
+    newPwd: '',
+    newPwdC: ''
   })
 
   const { guardarPassword } = useAuth()
@@ -25,6 +26,16 @@ const CambiarPassword = () => {
         error: true
       })
       return
+    }
+
+    if(password.newPwd !== password.newPwdC){
+      
+      setAlerta({
+        msg: 'Las contraseñas no coinciden',
+        error: true
+      })
+      return
+
     }
 
     if(password.newPwd.length <6){
@@ -63,6 +74,7 @@ const CambiarPassword = () => {
                 name="currentPwd"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 placeholder="Escribe tu contraseña actual"
+                autoComplete="off"
                 onChange={ e => setPassword({
                   ...password, [e.target.name] : e.target.value
                 })}
@@ -77,12 +89,31 @@ const CambiarPassword = () => {
                 name="newPwd"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 placeholder="Escribe una nueva contraseña"
+                autoComplete="off"
                 onChange={ e => setPassword({
                   ...password, [e.target.name] : e.target.value
                 })}
                 
               />
             </div>
+
+            <div className="my-3">
+              <label htmlFor="email" className="uppercase font-bold text-gray-600">Nueva contraseña</label>
+              <input 
+                type="password" 
+                id="newPwdC"
+                name="newPwdC"
+                className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
+                placeholder="Repite la nueva contraseña"
+                autoComplete="off"
+                onChange={ e => setPassword({
+                  ...password, [e.target.name] : e.target.value
+                })}
+                
+              />
+            </div>
+
+            
 
             <input 
                 type="submit" 
