@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
-import Alerta from "./Alerta"
 import usePacientes from "../hooks/usePacientes"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Formulario = () => {
@@ -11,8 +12,6 @@ const Formulario = () => {
     const [fecha, setFecha] = useState('')
     const [sintomas, setSintomas] = useState('')
     const [id, setId] = useState(null)
-    const [alerta, setAlerta] = useState({})
-
     const { guardarPaciente, paciente } = usePacientes()
 
 
@@ -29,26 +28,27 @@ const Formulario = () => {
         
     }, [paciente])
 
-    
     const handleSubmit = ((e) => {
         e.preventDefault();
 
         if([nombre, propietario, email, fecha, sintomas].includes('') ){
-            setAlerta({
-                msg: 'Todos los campos son obligatorios',
-                error: true
-            })
+            toast.warn('Todos los datos son obligatorios');
             return
         }
 
         guardarPaciente({nombre, propietario, email, fecha, sintomas, id})
-        setAlerta({
-            msg: 'Guardado correctamente',
-        })
+
+        toast.success('Guardado correctamente', {hideProgressBar: false});
+
+        setNombre('')
+        setPropietario('')
+        setEmail('')
+        setFecha('');
+        setSintomas('')
+        setId('')
+        
 
     })
-
-    const { msg } = alerta
 
   return (
 
@@ -58,9 +58,21 @@ const Formulario = () => {
     <p className="text-xl mt-5 mb-10 text-center">Agrega tus Pacientes y {' '}
         <span className="text-indigo-600 font-bold">administralos</span>
     </p>
-
+    <ToastContainer
+        position="top-right"
+        autoClose={500}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={true}
+        pauseOnHover={true}
+        theme="colored"
+    />   
     <form 
         action="" 
+        id="formPacientes"
         className="bg-white py-10 px-5 mb-10 lg:mb-5 shadow-md rounded-md" 
         onSubmit={ handleSubmit }
     >
@@ -106,7 +118,7 @@ const Formulario = () => {
             </label>
             
             <input 
-                type="text" 
+                type="email" 
                 id="email"
                 placeholder="Correo electrónico del Propetario"
                 className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
@@ -155,8 +167,6 @@ const Formulario = () => {
 
         />
     </form>
-    { msg && <Alerta alerta={alerta} /> }
-
 
     </>
   )

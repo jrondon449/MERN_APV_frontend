@@ -3,7 +3,7 @@ import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.all'
-
+// import 'sweetalert2/src/sweetalert2.scss'
 
 
 
@@ -19,10 +19,9 @@ const PacientesProvider = ({children}) => {
         toast: true,
         icon: 'success',
         title: 'Titulo',
-        animation: false,
         position: 'top-right',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
         timerProgressBar: true,
     });
         
@@ -70,6 +69,7 @@ const PacientesProvider = ({children}) => {
                 const pacientesActualizado = pacientes.map( pacienteState => pacienteState._id === data._id ? data : pacienteState)
 
                 setPacientes(pacientesActualizado)
+
                 
             } catch (error) {
                 console.log(error)
@@ -105,7 +105,8 @@ const PacientesProvider = ({children}) => {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, eliminarlo!'
+            confirmButtonText: 'Si, eliminarlo!',
+            cancelButtonText:  'Cancelar'
             }).then((result) => {
             if (result.isConfirmed) {
                 return true;
@@ -131,7 +132,6 @@ const PacientesProvider = ({children}) => {
 
                 setPacientes(pacientesActualizado)
                 toastMixin.fire({
-                    animation: true,
                     title: 'Eliminado correctamente'
                   });
 
